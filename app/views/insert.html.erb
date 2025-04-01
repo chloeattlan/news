@@ -1,0 +1,69 @@
+<style>
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    max-width: 300px;
+  }
+
+  label {
+
+    margin-bottom: 4px;
+  }
+
+  input, textarea {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+</style>
+
+<h1>Header is here</h1>
+
+<form action="/insert_note" method="post">
+  <div class="form-group">
+    <label for="event">Event</label>
+    <input type="text" id="event" name="event">
+  </div>
+
+  <div class="form-group">
+    <label for="article">Article Link</label>
+    <input type="text" id="article" name="article">
+  </div>
+
+  <div class="form-group">
+    <label for="source">Source</label>
+    <input type="text" id="source" name="source">
+  </div>
+
+  <div class="form-group">
+    <label for="summary">Summary</label>
+    <textarea id="summary" name="summary" rows="3"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="impact">Impact</label>
+    <textarea id="impact" name="impact" rows="3"></textarea>
+  </div>
+    <div class="form-group">
+    <label for="today">Today's Date</label>
+    <input type="text" id="today" name="today">
+  </div>
+
+  <div class="form-group">
+    <label for="timeframe">Timeframe</label>
+    <input type="text" id="timeframe" name="timeframe">
+  </div>
+
+  <div class="form-group">
+    <label for="stocks">Stocks Affected</label>
+    <input type="text" id="stocks" name="stocks">
+  </div>
+
+  <button type="submit">Create News Event</button>
+</form>
