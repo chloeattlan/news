@@ -1,6 +1,36 @@
 class NotesController < ApplicationController
   #display the homepage
   def homepage
+    @notes = Note.all
+
+    render({ :template => "homepage"})
+  end
+
+  def insert_page
+    render({ :template => "insert"})
+  end
+
+  #add a new news event 
+  def insert_note
+    note = Note.new
+    note.event = params['event']
+    event = params[:event_choice] == "Other" ? params[:custom_event] : params[:event_choice]
+    note.event = event
+    note.article = params['article']
+    note.source = params['source']
+    note.summary = params['summary']
+    note.impact = params['impact']
+    note.today = params['today']
+    note.timeframe = params['timeframe']
+    note.stocks_text = params['stocks']
+    note.save
+
+    redirect_to("/")
+  end
+end
+
+# CODE FOR ADDING OPEN AI STUFF
+
     # require "http"
     # require "json"
     # require "dotenv/load"
@@ -30,29 +60,3 @@ class NotesController < ApplicationController
     # parsed_response = JSON.parse(raw_response)
     # news = parsed_response['choices'][0]['message']['content']
     # @items = news.split("$%").reject(&:empty?)
-
-    @notes = Note.all
-
-    render({ :template => "homepage"})
-  end
-
-  def insert_page
-    render({ :template => "insert"})
-  end
-
-  #add a new news event 
-  def insert_note
-    note = Note.new
-    note.event = params['event']
-    note.article = params['article']
-    note.source = params['source']
-    note.summary = params['summary']
-    note.impact = params['impact']
-    note.today = params['today']
-    note.timeframe = params['timeframe']
-    note.stocks_text = params['stocks']
-    note.save
-
-    redirect_to("/")
-  end
-end

@@ -30,29 +30,13 @@
     transform: translateY(-1px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
   }
-</style>
-
-<h1>🗞️ Market News Dashboard 🗞️</h1>
-
-<a href="/insert_page" class="button-link">＋ Insert News Event</a>
-
-
-<!--<h2> Recent News Headlines From Today: </h2>
-
-<ul>
-  <%# @items.each do |item| %>-->
-<!--    <li><%#= item %></li>-->
-  <%# end %>
-<!--</ul>-->
-
-
-<style>
   table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     font-family: sans-serif;
     font-size: 14px;
+    table-layout: fixed; /* this ensures fixed widths are respected */
   }
 
   th, td {
@@ -60,6 +44,7 @@
     padding: 10px;
     vertical-align: top;
     text-align: left;
+    word-wrap: break-word; /* wrap long text */
   }
 
   th {
@@ -75,37 +60,78 @@
     color: #0645ad;
     text-decoration: underline;
   }
+
+  /* Set specific widths */
+  th.summary, td.summary,
+  th.impact, td.impact {
+    width: 25%;
+  }
+
+  th.created, td.created,
+  th.source, td.source,
+  th.timeframe, td.timeframe,
+  th.stocks, td.stocks,
+  th.article, td.article,
+  th.event, td.event {
+    width: 10%;
+  }
+  .event-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  text-transform: capitalize;
+}
+
+.trump-tariffs { background-color: #4f46e5; }
+.jobs-report                { background-color: #16a34a; }
+.inflation-data            { background-color: #f59e0b; }
+.company-earnings          { background-color: #ef4444; }
+.geopolitical-tension      { background-color: #6b7280; }
+.other                     { background-color: #6366f1; }
+.event-default             { background-color: #6b7280; }
 </style>
+
+
+<h1>🗞️ Market News Dashboard 🗞️</h1>
+
+<a href="/insert_page" class="button-link">＋ Insert News Event</a>
 
 <table>
   <thead>
-    <tr>
-      <th>Created At</th>
-      <th>Event</th>
-      <th>Source</th>
-      <th>Article</th>
-      <th>Summary</th>
-      <th>Impact</th>
-      <th>Stocks Affected</th>
-      <th>Timeframe</th>
-    </tr>
-  </thead>
+  <tr>
+    <th class="created">Created At</th>
+    <th class="event">Event</th>
+    <th class="source">Source</th>
+    <th class="article">Article</th>
+    <th class="summary">Summary</th>
+    <th class="impact">Impact</th>
+    <th class="stocks">Stocks Affected</th>
+    <th class="timeframe">Timeframe</th>
+  </tr>
+</thead>
   <tbody>
     <% @notes.each do |note| %>
       <tr>
-        <td><%= note.created_at.strftime('%Y-%m-%d %H:%M') %></td>
-        <td><%= note.event %></td>
-        <td><%= note.source %></td>
+        <td class="created"><%= note.created_at.strftime('%Y-%m-%d %H:%M') %></td>
         <td>
+          <% event_class = note.event.present? ? note.event.strip.parameterize : "event-default" %>
+          <span class="event-badge <%= event_class %>">
+          <%= note.event %>
+          </span>
+        </td>
+        <td class="source"><%= note.source %></td>
+        <td class="article">
           <% if note.article.present? %>
             <a href="<%= note.article %>" target="_blank"><%= note.article %></a>
           <% end %>
         </td>
-        <td><%= note.summary %></td>
-        <td><%= note.impact %></td>
-        <td><%= note.stocks_text %></td>
-        <td><%= note.timeframe %></td>
-
+        <td class="summary"><%= note.summary %></td>
+        <td class="impact"><%= note.impact %></td>
+        <td class="stocks"><%= note.stocks_text %></td>
+        <td class="timeframe"><%= note.timeframe %></td>
       </tr>
     <% end %>
   </tbody>
