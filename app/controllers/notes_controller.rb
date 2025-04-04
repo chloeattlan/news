@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   #display the homepage
   def homepage
-    @notes = Note.all
+    @notes = Note.order(created_at: :desc)
 
     render({ :template => "homepage"})
   end
@@ -27,6 +27,25 @@ class NotesController < ApplicationController
 
     redirect_to("/")
   end
+
+
+  def edit_note
+    note_id = params['id']
+    curr_note = Note.where({ :id => note_id})[0]
+    event = params[:event_choice] == "Other" ? params[:custom_event] : params[:event_choice]
+    note.event = event
+    note.article = params['article']
+    note.source = params['source']
+    note.summary = params['summary']
+    note.impact = params['impact']
+    note.today = params['today']
+    note.timeframe = params['timeframe']
+    note.stocks_text = params['stocks']
+    note.save
+
+    redirect_to("/")
+  end
+
 end
 
 # CODE FOR ADDING OPEN AI STUFF

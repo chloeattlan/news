@@ -9,6 +9,7 @@
 #  impact      :text
 #  source      :string
 #  stocks_text :string
+#  subject     :string
 #  summary     :text
 #  timeframe   :text
 #  today       :date
