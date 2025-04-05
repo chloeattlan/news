@@ -30,6 +30,24 @@
     transform: translateY(-1px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
   }
+  .edit-link {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color:rgb(245, 213, 255); /* Indigo */
+    color: black;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .edit-link:hover {
+    background-color:rgb(153, 56, 202);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  }
   table {
     width: 100%;
     border-collapse: collapse;
@@ -62,18 +80,22 @@
   }
 
   /* Set specific widths */
-  th.summary, td.summary,
-  th.impact, td.impact {
+  th.summary, td.summary {
     width: 25%;
+  }
+  th.impact, td.impact {
+    width: 15%;
+  }
+  th.article, td.article {
+    width: 10%;
   }
 
   th.created, td.created,
   th.source, td.source,
   th.timeframe, td.timeframe,
   th.stocks, td.stocks,
-  th.article, td.article,
   th.event, td.event {
-    width: 10%;
+    width: 6%;
   }
   .event-badge {
   display: inline-block;
@@ -93,23 +115,6 @@
 .tesla-musk                { background-color:rgb(209, 84, 0); }
 .other                     { background-color: #6366f1; }
 .event-default             { background-color: #6b7280; }
-.edit-column a {
-  display: inline-block;
-  padding: 8px 16px;  /* Extra space around the text */
-  background-color: #4f46e5;  /* Indigo background */
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-.edit-column a:hover {
-  background-color: #4338ca;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-}
 
 </style>
 
@@ -153,7 +158,7 @@
         <td class="stocks"><%= note.stocks_text %></td>
         <td class="timeframe"><%= note.timeframe %></td>
         <td class="edit-column">
-          <a href="/modify_note/<%= note.id %>" class="button-link">Edit News Event</a>
+          <a href="/show/<%=note.id%>" class="edit-link">Show Details</a>
         </td>
 
 

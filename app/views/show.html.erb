@@ -1,0 +1,104 @@
+<style>
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    max-width: 300px;
+  }
+
+  label {
+
+    margin-bottom: 4px;
+  }
+
+  input, textarea {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+</style>
+
+<h1>Details on Note</h1>
+
+<a href="/">
+  Go back
+</a>
+
+<div>
+<a href = "/delete_note/<%=@note.id%>"> Delete note </a>
+</div>
+
+<form action="/modify_note/<%=@note.id%>" method="post">
+  <div class="form-group">
+    <label for="event_choice">Event</label>
+    <select id="event_choice" name="event_choice" onchange="toggleCustomEvent(this)">
+      <option value="">-- Select a common event --</option>
+      <option value="Fed Interest Rate Decision" <%= "selected" if @note.event == "Fed Interest Rate Decision" %>>Fed Interest Rate Decision</option>
+      <option value="Jobs Report" <%= "selected" if @note.event == "Jobs Report" %>>Jobs Report</option>
+      <option value="Inflation Data" <%= "selected" if @note.event == "Inflation Data" %>>Inflation Data</option>
+      <option value="Company Earnings" <%= "selected" if @note.event == "Company Earnings" %>>Company Earnings</option>
+      <option value="Trump Tariffs" <%= "selected" if @note.event == "Trump Tariffs" %>>Trump Tariffs</option>
+      <option value="Tesla Musk" <%= "selected" if @note.event == "Tesla Musk" %>>Tesla Musk</option>
+      <option value="Other" <%= "selected" if !["Fed Interest Rate Decision", "Jobs Report", "Inflation Data", "Company Earnings", "Trump Tariffs", "Tesla Musk"].include?(@note.event) && @note.event.present? %>>Other (write your own)</option>
+    </select>
+    <input type="text" id="custom_event" name="custom_event" placeholder="Custom event..."
+          style="<%= (!["Fed Interest Rate Decision", "Jobs Report", "Inflation Data", "Company Earnings", "Trump Tariffs", "Tesla Musk"].include?(@note.event) && @note.event.present?) ? 'display:block; margin-top: 8px;' : 'display:none; margin-top: 8px;' %>"
+          value="<%= (!["Fed Interest Rate Decision", "Jobs Report", "Inflation Data", "Company Earnings", "Trump Tariffs", "Tesla Musk"].include?(@note.event) && @note.event.present?) ? @note.event : '' %>" />
+    </div>
+
+
+
+  <div class="form-group">
+    <label for="article">Article Link</label>
+    <textarea id="article" name="article" rows="3"><%= @note.article %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="source">Source</label>
+    <textarea id="source" name="source" rows="3"><%= @note.source %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="summary">Summary</label>
+    <textarea id="summary" name="summary" rows="3"><%= @note.summary %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="impact">Impact</label>
+    <textarea id="impact" name="impact" rows="3"><%= @note.impact %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="today">Today's Date</label>
+    <textarea id="today" name="today" rows="3"><%= @note.today %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="timeframe">Timeframe</label>
+    <textarea id="timeframe" name="timeframe" rows="3"><%= @note.timeframe %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="stocks_text">Stocks Affected</label>
+    <textarea id="stocks_text" name="stocks_text" rows="3"><%= @note.stocks_text %></textarea>
+  </div>
+
+  <button type="submit">Save Edits</button>
+</form>
+
+<script>
+  function toggleCustomEvent(select) {
+    const customInput = document.getElementById("custom_event");
+    if (select.value === "Other") {
+      customInput.style.display = "block";
+    } else {
+      customInput.style.display = "none";
+      customInput.value = ""; // clear input if user switches back
+    }
+  }
+</script>

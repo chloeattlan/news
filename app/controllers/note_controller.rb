@@ -1,4 +1,4 @@
-class NotesController < ApplicationController
+class NoteController < ApplicationController
   #display the homepage
   def homepage
     @notes = Note.order(created_at: :desc)
@@ -22,16 +22,22 @@ class NotesController < ApplicationController
     note.impact = params['impact']
     note.today = params['today']
     note.timeframe = params['timeframe']
-    note.stocks_text = params['stocks']
+    note.stocks_text = params['stocks_text']
     note.save
 
     redirect_to("/")
   end
 
 
-  def edit_note
-    note_id = params['id']
-    curr_note = Note.where({ :id => note_id})[0]
+  def show_note
+    @note = Note.find(params[:note_id])
+
+    render({ :template => "show"})
+  end
+
+  def modify_note
+    note = Note.find(params[:note_id])
+    note.event = params['event']
     event = params[:event_choice] == "Other" ? params[:custom_event] : params[:event_choice]
     note.event = event
     note.article = params['article']
@@ -40,9 +46,15 @@ class NotesController < ApplicationController
     note.impact = params['impact']
     note.today = params['today']
     note.timeframe = params['timeframe']
-    note.stocks_text = params['stocks']
+    note.stocks_text = params['stocks_text']
     note.save
 
+    redirect_to("/")
+  end
+
+  def delete_note
+    note = Note.find(params[:note_id])
+    note.destroy
     redirect_to("/")
   end
 
