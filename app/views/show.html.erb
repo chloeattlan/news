@@ -21,16 +21,54 @@
     font-size: 14px;
     margin-top: 10px;
   }
+.button-link {
+    display: inline-block;
+    padding: 6px 10px;
+    background-color:rgb(184, 214, 231); /* Indigo */
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .button-link:hover {
+    background-color:rgb(65, 145, 230);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  }
+  .delete-link {
+    display: inline-block;
+    padding: 6px 10px;
+    background-color:rgb(255, 198, 195); /* Indigo */
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .delete-link:hover {
+    background-color:rgb(168, 0, 0);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  }
 </style>
 
 <h1>Details on Note</h1>
-
-<a href="/">
+<div>
+<a href="/" class="button-link">
   Go back
-</a>
+</a> </div>
 
 <div>
-<a href = "/delete_note/<%=@note.id%>"> Delete note </a>
+<a href = "/delete_note/<%=@note.id%>" class="delete-link"> Delete note </a>
 </div>
 
 <form action="/modify_note/<%=@note.id%>" method="post">
